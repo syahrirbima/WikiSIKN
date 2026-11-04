@@ -6,6 +6,8 @@
     <title>WikiSIKN - Pusat Belajar SIKN & JIKN ANRI</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts: Plus Jakarta Sans -->
@@ -744,7 +746,16 @@
             }
         ];
 
-        // ================= APP STATE & LOCALSTORAGE =================
+        // ================= SUPABASE CONFIG =================
+        const SUPABASE_URL = "https://jqqieqsxlhvcxeihuaei.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_zSdGSgdPyXoNkoCahoE0oA_xNBb3CNr";
+        // Email akun admin yang dibuat di Supabase > Authentication > Users.
+        // Password akun tersebut = password yang diketik di form "Login Admin".
+        const ADMIN_EMAIL = "admin@wikisikn.com";
+
+        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // ================= APP STATE =================
         let videos = [];
         let materi = [];
         let pics = [];
@@ -753,35 +764,91 @@
         let activeVideoCat = 'All';
         let activeMateriCat = 'All';
 
-        function initData() {
-            const savedVideos = localStorage.getItem('wikisikn_videos');
-            const savedMateri = localStorage.getItem('wikisikn_materi');
-            const savedPics = localStorage.getItem('wikisikn_pics');
-            const savedAdminState = localStorage.getItem('wikisikn_admin');
+        // ---- Mapping antara objek aplikasi <-> baris tabel Supabase ----
+        const toDbVideo = v => ({ id: v.id, title: v.title, category: v.category, youtube_id: v.youtubeId, duration: v.duration, description: v.description });
+        const fromDbVideo = r => ({ id: r.id, title: r.title, category: r.category, youtubeId: r.youtube_id, duration: r.duration, description: r.description });
+        const toDbMateri = m => ({ id: m.id, title: m.title, category: m.category, file_url: m.fileUrl, date: m.date, description: m.description });
+        const fromDbMateri = r => ({ id: r.id, title: r.title, category: r.category, fileUrl: r.file_url, date: r.date, description: r.description });
+        const toDbPic = p => ({ id: p.id, name: p.name, role: p.role, phone: p.phone, email: p.email, simpul: p.simpul, description: p.description });
+        const fromDbPic = r => ({ id: r.id, name: r.name, role: r.role, phone: r.phone, email: r.email, simpul: r.simpul || [], description: r.description });
 
-            videos = savedVideos ? JSON.parse(savedVideos) : [...DEFAULT_VIDEOS];
-            materi = savedMateri ? JSON.parse(savedMateri) : [...DEFAULT_MATERI];
-            pics = savedPics ? JSON.parse(savedPics) : [...DEFAULT_PICS];
-            isAdminLoggedIn = savedAdminState === 'true';
+        const TABLES = {
+            video: { name: 'videos', to: toDbVideo },
+            materi: { name: 'materi', to: toDbMateri },
+            pic: { name: 'pics', to: toDbPic }
+        };
 
+        async function initData() {
+            try {
+                const { data } = await sb.auth.getSession();
+                isAdminLoggedIn = !!(data && data.session);
+            } catch (err) {
+                isAdminLoggedIn = false;
+            }
             updateAdminUI();
-            renderAllModuleData();
+            await loadAllData();
         }
 
-        function saveDataToStorage() {
-            localStorage.setItem('wikisikn_videos', JSON.stringify(videos));
-            localStorage.setItem('wikisikn_materi', JSON.stringify(materi));
-            localStorage.setItem('wikisikn_pics', JSON.stringify(pics));
-        }
+        async function loadAllData() {
+            try {
+                const [v, m, p] = await Promise.all([
+                    sb.from('videos').select('*').order('created_at', { ascending: false }),
+                    sb.from('materi').select('*').order('created_at', { ascending: false }),
+                    sb.from('pics').select('*').order('created_at', { ascending: false })
+                ]);
+                if (v.error) throw v.error;
+                if (m.error) throw m.error;
+                if (p.error) throw p.error;
 
-        function resetDataToDefault() {
-            if (confirm("Apakah Anda yakin ingin mengembalikan semua data ke data contoh bawaan?")) {
+                videos = v.data.map(fromDbVideo);
+                materi = m.data.map(fromDbMateri);
+                pics = p.data.map(fromDbPic);
+            } catch (err) {
+                console.error('Gagal memuat data Supabase:', err);
                 videos = [...DEFAULT_VIDEOS];
                 materi = [...DEFAULT_MATERI];
                 pics = [...DEFAULT_PICS];
-                saveDataToStorage();
-                renderAllModuleData();
-                showToast("Data berhasil direset ke contoh default!");
+                showToast("Gagal terhubung ke database. Menampilkan data contoh.");
+            }
+            renderAllModuleData();
+        }
+
+        async function saveItem(type, item) {
+            const t = TABLES[type];
+            const { error } = await sb.from(t.name).upsert(t.to(item));
+            if (error) throw error;
+        }
+
+        async function removeItem(type, id) {
+            const { error } = await sb.from(TABLES[type].name).delete().eq('id', id);
+            if (error) throw error;
+        }
+
+        async function resetDataToDefault() {
+            if (confirm("Apakah Anda yakin ingin mengembalikan semua data ke data contoh bawaan?")) {
+                try {
+                    for (const key of Object.keys(TABLES)) {
+                        const { error } = await sb.from(TABLES[key].name).delete().neq('id', '');
+                        if (error) throw error;
+                    }
+                    // created_at dibuat berurutan agar urutan tampil sama seperti data contoh
+                    const base = Date.now();
+                    const stamp = i => new Date(base - i * 1000).toISOString();
+                    const ins = async (key, list) => {
+                        const rows = list.map((it, i) => ({ ...TABLES[key].to(it), created_at: stamp(i) }));
+                        const { error } = await sb.from(TABLES[key].name).insert(rows);
+                        if (error) throw error;
+                    };
+                    await ins('video', DEFAULT_VIDEOS);
+                    await ins('materi', DEFAULT_MATERI);
+                    await ins('pic', DEFAULT_PICS);
+                    await loadAllData();
+                    showToast("Data berhasil direset ke contoh default!");
+                } catch (err) {
+                    console.error(err);
+                    showToast("Gagal reset data. Pastikan Anda login admin.");
+                    await loadAllData();
+                }
             }
         }
 
@@ -1123,11 +1190,11 @@
             }
         }
 
-        function toggleAdminModal() {
+        async function toggleAdminModal() {
             if (isAdminLoggedIn) {
                 if (confirm("Apakah Anda ingin keluar dari Mode Admin?")) {
+                    await sb.auth.signOut();
                     isAdminLoggedIn = false;
-                    localStorage.setItem('wikisikn_admin', 'false');
                     updateAdminUI();
                     renderAllModuleData();
                     showToast("Mode admin di-nonaktifkan.");
@@ -1139,12 +1206,12 @@
             }
         }
 
-        function handleAdminLogin(e) {
+        async function handleAdminLogin(e) {
             e.preventDefault();
             const pass = document.getElementById('admin-pass-input').value;
-            if (pass === 'S1knj1kn') {
+            const { error } = await sb.auth.signInWithPassword({ email: ADMIN_EMAIL, password: pass });
+            if (!error) {
                 isAdminLoggedIn = true;
-                localStorage.setItem('wikisikn_admin', 'true');
                 closeModal('modal-login');
                 updateAdminUI();
                 renderAllModuleData();
@@ -1237,12 +1304,13 @@
             }
         }
 
-        function handleCrudSubmit(e) {
+        async function handleCrudSubmit(e) {
             e.preventDefault();
             const type = document.getElementById('form-module-type').value;
             const id = document.getElementById('form-item-id').value;
             const title = document.getElementById('form-title').value.trim();
             const desc = document.getElementById('form-description').value.trim();
+            let savedItem = null;
 
             if (type === 'video') {
                 const cat = document.getElementById('form-category').value.trim() || 'Umum';
@@ -1253,16 +1321,18 @@
                     const idx = videos.findIndex(v => v.id === id);
                     if (idx !== -1) {
                         videos[idx] = { ...videos[idx], title, category: cat, youtubeId: ytId, description: desc };
+                        savedItem = videos[idx];
                     }
                 } else {
-                    videos.unshift({
+                    savedItem = {
                         id: 'vid-' + Date.now(),
                         title,
                         category: cat,
                         youtubeId: ytId,
                         duration: '10:00',
                         description: desc
-                    });
+                    };
+                    videos.unshift(savedItem);
                 }
             } else if (type === 'materi') {
                 const cat = document.getElementById('form-category').value.trim() || 'Pedoman';
@@ -1272,16 +1342,18 @@
                     const idx = materi.findIndex(m => m.id === id);
                     if (idx !== -1) {
                         materi[idx] = { ...materi[idx], title, category: cat, fileUrl, description: desc };
+                        savedItem = materi[idx];
                     }
                 } else {
-                    materi.unshift({
+                    savedItem = {
                         id: 'mat-' + Date.now(),
                         title,
                         category: cat,
                         fileUrl,
                         date: new Date().toISOString().split('T')[0],
                         description: desc
-                    });
+                    };
+                    materi.unshift(savedItem);
                 }
             } else if (type === 'pic') {
                 const role = document.getElementById('form-pic-role').value.trim() || 'Arsiparis ANRI';
@@ -1294,9 +1366,10 @@
                     const idx = pics.findIndex(p => p.id === id);
                     if (idx !== -1) {
                         pics[idx] = { ...pics[idx], name: title, role, phone, email, simpul, description: desc };
+                        savedItem = pics[idx];
                     }
                 } else {
-                    pics.unshift({
+                    savedItem = {
                         id: 'pic-' + Date.now(),
                         name: title,
                         role,
@@ -1304,25 +1377,38 @@
                         email,
                         simpul,
                         description: desc
-                    });
+                    };
+                    pics.unshift(savedItem);
                 }
             }
 
-            saveDataToStorage();
             renderAllModuleData();
             closeModal('modal-crud-form');
-            showToast("Konten berhasil disimpan!");
+            try {
+                if (savedItem) await saveItem(type, savedItem);
+                showToast("Konten berhasil disimpan!");
+            } catch (err) {
+                console.error(err);
+                showToast("Gagal menyimpan ke database. Silakan login ulang sebagai admin.");
+                await loadAllData();
+            }
         }
 
-        function deleteItem(type, id) {
+        async function deleteItem(type, id) {
             if (confirm("Apakah Anda yakin ingin menghapus konten ini?")) {
                 if (type === 'video') videos = videos.filter(v => v.id !== id);
                 if (type === 'materi') materi = materi.filter(m => m.id !== id);
                 if (type === 'pic') pics = pics.filter(p => p.id !== id);
 
-                saveDataToStorage();
                 renderAllModuleData();
-                showToast("Konten berhasil dihapus.");
+                try {
+                    await removeItem(type, id);
+                    showToast("Konten berhasil dihapus.");
+                } catch (err) {
+                    console.error(err);
+                    showToast("Gagal menghapus dari database. Silakan login ulang sebagai admin.");
+                    await loadAllData();
+                }
             }
         }
 
