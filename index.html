@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WikiSIKN - Pusat Belajar SIKN & JIKN ANRI</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        jikn: {
+                            blue: '#2563EB',       // Primary JIKN Royal Blue
+                            darkblue: '#1D4ED8',   // Hover Blue
+                            navy: '#1E3A8A',       // Core ANRI Navy
+                            yellow: '#F59E0B',     // Bright Node Amber
+                            lightyellow: '#FCD34D',// Outer Dots Yellow
+                            bg: '#F8FAFC',
+                            lightbg: '#EFF6FF'
+                        },
+                        anri: {
+                            red: '#C8102E'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .bg-network-pattern {
+            background-image: radial-gradient(rgba(37, 99, 235, 0.12) 1.5px, transparent 1.5px), radial-gradient(rgba(245, 158, 11, 0.1) 1.5px, transparent 1.5px);
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Dual Branding Logos: ANRI + JIKN -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                    
+                    <!-- JIKN Node SVG Emblem (High Definition Recreation of uploaded logo) -->
+                    <div class="flex items-center space-x-2">
+                        <div class="w-11 h-11 relative flex items-center justify-center shrink-0">
+                            <svg viewBox="0 0 200 200" class="w-full h-full">
+                                <!-- Outer Yellow Dots Array -->
+                                <circle cx="100" cy="18" r="8" fill="#FCD34D"/>
+                                <circle cx="158" cy="42" r="8" fill="#FCD34D"/>
+                                <circle cx="182" cy="100" r="8" fill="#FCD34D"/>
+                                <circle cx="158" cy="158" r="8" fill="#FCD34D"/>
+                                <circle cx="100" cy="182" r="8" fill="#FCD34D"/>
+                                <circle cx="42" cy="158" r="8" fill="#FCD34D"/>
+                                <circle cx="18" cy="100" r="8" fill="#FCD34D"/>
+                                <circle cx="42" cy="42" r="8" fill="#FCD34D"/>
+
+                                <!-- Mid Amber Dots Array -->
+                                <circle cx="100" cy="40" r="10" fill="#F59E0B"/>
+                                <circle cx="142" cy="58" r="10" fill="#F59E0B"/>
+                                <circle cx="160" cy="100" r="10" fill="#F59E0B"/>
+                                <circle cx="142" cy="142" r="10" fill="#F59E0B"/>
+                                <circle cx="100" cy="160" r="10" fill="#F59E0B"/>
+                                <circle cx="58" cy="142" r="10" fill="#F59E0B"/>
+                                <circle cx="40" cy="100" r="10" fill="#F59E0B"/>
+                                <circle cx="58" cy="58" r="10" fill="#F59E0B"/>
+
+                                <!-- Inner Blue Dots Ring -->
+                                <circle cx="100" cy="62" r="12" fill="#3B82F6"/>
+                                <circle cx="127" cy="73" r="12" fill="#3B82F6"/>
+                                <circle cx="138" cy="100" r="12" fill="#3B82F6"/>
+                                <circle cx="127" cy="127" r="12" fill="#3B82F6"/>
+                                <circle cx="100" cy="138" r="12" fill="#3B82F6"/>
+                                <circle cx="73" cy="127" r="12" fill="#3B82F6"/>
+                                <circle cx="62" cy="100" r="12" fill="#3B82F6"/>
+                                <circle cx="73" cy="73" r="12" fill="#3B82F6"/>
+
+                                <!-- Central ANRI Navy Core -->
+                                <circle cx="100" cy="100" r="28" fill="#1E3A8A"/>
+                                <text x="100" y="105" font-family="Arial, sans-serif" font-weight="900" font-style="italic" font-size="20" fill="#FFFFFF" text-anchor="middle">anri</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="h-8 w-px bg-slate-300 hidden sm:block"></div>
+
+                    <!-- Title & Tagline -->
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-black text-2xl tracking-tight bg-gradient-to-r from-jikn-blue via-blue-700 to-jikn-navy bg-clip-text text-transparent">WikiSIKN</span>
+                            <span class="text-[10px] bg-blue-100 text-jikn-blue font-bold px-2 py-0.5 rounded-full border border-blue-200 hidden sm:inline-block">ANRI</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium hidden sm:block">Pusat Pembelajaran SIKN & JIKN</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <button id="nav-home" onclick="switchTab('home')" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition text-jikn-blue bg-blue-50">
+                        <i class="fa-solid fa-house mr-1.5"></i> Beranda
+                    </button>
+                    <button id="nav-video" onclick="switchTab('video')" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-jikn-blue hover:bg-slate-100 transition">
+                        <i class="fa-solid fa-circle-play mr-1.5"></i> Video Tutorial
+                    </button>
+                    <button id="nav-materi" onclick="switchTab('materi')" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-jikn-blue hover:bg-slate-100 transition">
+                        <i class="fa-solid fa-book-open mr-1.5"></i> Materi dan Regulasi
+                    </button>
+                    <button id="nav-pic" onclick="switchTab('pic')" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-jikn-blue hover:bg-slate-100 transition">
+                        <i class="fa-solid fa-users-gear mr-1.5"></i> PIC Pendamping
+                    </button>
+                </nav>
+
+                <!-- Admin Action Button -->
+                <div class="flex items-center space-x-2">
+                    <div id="admin-indicator" class="hidden items-center space-x-2 bg-amber-50 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-bold text-amber-800">
+                        <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                        <span class="hidden sm:inline">Admin Mode</span>
+                    </div>
+                    <button id="btn-admin-action" onclick="toggleAdminModal()" class="px-3.5 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-1.5 bg-jikn-navy text-white hover:bg-blue-900 shadow-sm">
+                        <i id="admin-icon" class="fa-solid fa-lock text-xs"></i>
+                        <span id="admin-btn-text">Login Admin</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="md:hidden border-t border-slate-200 bg-white px-4 py-2 flex justify-around text-xs font-medium text-slate-600">
+            <button onclick="switchTab('home')" class="mobile-nav-btn text-center py-1 text-jikn-blue" id="m-nav-home">
+                <i class="fa-solid fa-house block text-base mb-0.5"></i> Beranda
+            </button>
+            <button onclick="switchTab('video')" class="mobile-nav-btn text-center py-1" id="m-nav-video">
+                <i class="fa-solid fa-circle-play block text-base mb-0.5"></i> Video
+            </button>
+            <button onclick="switchTab('materi')" class="mobile-nav-btn text-center py-1" id="m-nav-materi">
+                <i class="fa-solid fa-book-open block text-base mb-0.5"></i> Materi
+            </button>
+            <button onclick="switchTab('pic')" class="mobile-nav-btn text-center py-1" id="m-nav-pic">
+                <i class="fa-solid fa-users-gear block text-base mb-0.5"></i> PIC
+            </button>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-b from-jikn-navy via-slate-900 to-slate-900 text-white relative overflow-hidden bg-network-pattern">
+        <div class="absolute inset-0 bg-gradient-to-r from-jikn-blue/20 via-transparent to-amber-500/10 pointer-events-none"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 py-12 sm:py-16 text-center relative z-10">
+            <!-- ANRI & JIKN Badge Header -->
+            <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 text-xs font-semibold text-amber-300 mb-6 shadow-lg">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                <span>Arsip Nasional Republik Indonesia &bull; Simpul Jaringan Kearsipan</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-4">
+                Pusat Pembelajaran Digital <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-amber-300">SIKN & JIKN</span>
+            </h1>
+            <p class="text-slate-300 text-sm sm:text-lg max-w-2xl mx-auto mb-8 font-light">
+                Akses video tutorial interaktif, pedoman pengolahan metadata, serta kontak PIC pendamping simpul jaringan kearsipan nasional secara terpadu.
+            </p>
+
+            <!-- Unified Global Search Bar -->
+            <div class="max-w-3xl mx-auto relative shadow-2xl rounded-2xl">
+                <div class="relative flex items-center bg-white rounded-2xl p-2 border-2 border-white/30 focus-within:border-jikn-yellow transition shadow-lg">
+                    <i class="fa-solid fa-magnifying-glass text-slate-400 text-lg ml-3 mr-2"></i>
+                    <input type="text" id="global-search-input" onkeyup="handleGlobalSearch()" 
+                           placeholder="Cari video tutorial, pedoman, regulasi, atau nama PIC simpul..." 
+                           class="w-full py-2.5 px-2 text-slate-800 placeholder-slate-400 text-sm sm:text-base focus:outline-none bg-transparent">
+                    <button onclick="clearSearch()" id="clear-search-btn" class="hidden text-slate-400 hover:text-slate-600 px-2 text-sm font-semibold">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Live Search Overlay Counter -->
+                <div id="search-results-badge" class="hidden mt-3 text-xs bg-slate-900/90 backdrop-blur border border-slate-700 py-1.5 px-4 rounded-full inline-block text-slate-300 font-medium">
+                    Menampilkan hasil pencarian untuk "<span id="search-keyword-label" class="text-amber-400 font-bold"></span>"
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ADMIN CONTROLS BAR (Visible when Admin Logged In) -->
+        <div id="admin-tools-bar" class="hidden mb-8 p-4 rounded-2xl bg-amber-50 border border-amber-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-user-gear"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-amber-900 text-sm">Mode Administrator Aktif</h4>
+                    <p class="text-xs text-amber-700">Anda dapat menambah, memperbarui, atau menghapus materi belajar di semua modul.</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 w-full sm:w-auto">
+                <button onclick="openAddModal()" class="w-full sm:w-auto px-4 py-2 bg-jikn-blue hover:bg-jikn-darkblue text-white text-xs font-bold rounded-lg shadow transition flex items-center justify-center space-x-1.5">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Tambah Konten Baru</span>
+                </button>
+                <button onclick="resetDataToDefault()" class="w-full sm:w-auto px-3 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-xs font-semibold rounded-lg transition" title="Kembalikan Data Contoh">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> Reset Data
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= TAB HOME / DASHBOARD ================= -->
+        <section id="tab-home" class="tab-content space-y-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card Module 1 -->
+                <div onclick="switchTab('video')" class="group cursor-pointer bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-jikn-blue/40 transition duration-300 relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-blue-100 text-jikn-blue flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-jikn-blue group-hover:text-white transition">
+                            <i class="fa-solid fa-circle-play"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-jikn-blue transition">Modul 1: Video Tutorial</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed mb-4">Panduan visual tata cara penggunaan SIKN, registrasi naskah, pencarian JIKN, dan pengelolaan hak akses simpul.</p>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-bold text-jikn-blue pt-4 border-t border-slate-100">
+                        <span id="stat-video-count">0 Video Tersedia</span>
+                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+
+                <!-- Card Module 2 -->
+                <div onclick="switchTab('materi')" class="group cursor-pointer bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-amber-500/40 transition duration-300 relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-amber-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-amber-500 group-hover:text-white transition">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-amber-600 transition">Modul 2: Materi dan Regulasi</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed mb-4">Unduh e-book petunjuk teknis, standar input metadata kearsipan, serta Undang-Undang & PP Kearsipan.</p>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-bold text-amber-600 pt-4 border-t border-slate-100">
+                        <span id="stat-materi-count">0 Materi & Dokumen</span>
+                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+
+                <!-- Card Module 3 -->
+                <div onclick="switchTab('pic')" class="group cursor-pointer bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-emerald-500/40 transition duration-300 relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:scale-110"></div>
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-users-gear"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-emerald-600 transition">Modul 3: PIC Pendamping</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed mb-4">Direktori tim pendamping ANRI untuk membimbing Simpul Jaringan Wilayah Kementerian, Lembaga, dan Daerah.</p>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-bold text-emerald-600 pt-4 border-t border-slate-100">
+                        <span id="stat-pic-count">0 Kontak Pendamping</span>
+                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Banner SIKN & JIKN -->
+            <div class="bg-gradient-to-r from-jikn-navy via-slate-900 to-slate-900 rounded-2xl p-6 sm:p-8 text-white relative overflow-hidden shadow-lg border border-slate-800">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <span class="text-xs font-bold tracking-wider text-amber-400 uppercase bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">Mengenai SIKN & JIKN</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold mt-3 mb-4">Mewujudkan Memori Kolektif Bangsa Secara Terintegrasi</h2>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                            <strong>SIKN (Sistem Informasi Kearsipan Nasional)</strong> adalah sistem informasi terpadu yang mengolah dan menyajikan data kearsipan dari berbagai Simpul Jaringan. 
+                        </p>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            <strong>JIKN (Jaringan Informasi Kearsipan Nasional)</strong> adalah wadah kerja sama kearsipan nasional dalam jaringan berbasis sistem elektronik untuk memberikan akses informasi publik yang sah dan transparan.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="switchTab('materi')" class="px-4 py-2 bg-jikn-blue hover:bg-jikn-darkblue text-white text-xs font-bold rounded-xl transition">
+                                <i class="fa-solid fa-book mr-1.5"></i> Pelajari Regulasi
+                            </button>
+                            <button onclick="switchTab('pic')" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-xl transition backdrop-blur border border-white/20">
+                                <i class="fa-solid fa-headset mr-1.5"></i> Konsultasi Simpul
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/80 p-6 rounded-xl border border-slate-700/60 text-xs space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="p-2 bg-blue-500/20 text-blue-400 rounded-lg"><i class="fa-solid fa-sitemap text-base"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Pusat Jaringan Informasi</h4>
+                                <p class="text-slate-400 mt-0.5">ANRI bertindak sebagai Pusat Jaringan yang mengoordinasikan seluruh Simpul Jaringan di tingkat Pusat dan Daerah.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="p-2 bg-amber-500/20 text-amber-400 rounded-lg"><i class="fa-solid fa-cloud-arrow-up text-base"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Standardisasi Input Metadata</h4>
+                                <p class="text-slate-400 mt-0.5">Pengolahan arsip dinamis dan statis disesuaikan dengan pedoman pengodean metadata internasional & nasional.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="p-2 bg-emerald-500/20 text-emerald-400 rounded-lg"><i class="fa-solid fa-shield-heart text-base"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Pendampingan Intensif</h4>
+                                <p class="text-slate-400 mt-0.5">Tim PIC Pendamping ANRI siap membantu verifikasi, bimtek, dan kendala teknis aplikasi SIKN.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Items Overview Grid -->
+            <div>
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900">Materi & Video Populer</h3>
+                        <p class="text-xs text-slate-500">Materi rekomendasi untuk anggota simpul jaringan baru</p>
+                    </div>
+                </div>
+                <div id="home-featured-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic Featured Items Rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB MODUL 1: VIDEO TUTORIAL ================= -->
+        <section id="tab-video" class="tab-content hidden space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-play text-jikn-blue"></i>
+                        <span>Modul 1: Video Tutorial SIKN & JIKN</span>
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">Panduan praktis berupa rekaman simulasi dan materi pembelajaran visual</p>
+                </div>
+                <!-- Category Filter -->
+                <div class="flex items-center space-x-2 overflow-x-auto pb-1 sm:pb-0">
+                    <button onclick="filterVideo('All')" class="video-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-jikn-blue text-white transition whitespace-nowrap" data-cat="All">Semua</button>
+                    <button onclick="filterVideo('Pengolahan SIKN')" class="video-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition whitespace-nowrap" data-cat="Pengolahan SIKN">Pengolahan SIKN</button>
+                    <button onclick="filterVideo('Portal JIKN')" class="video-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition whitespace-nowrap" data-cat="Portal JIKN">Portal JIKN</button>
+                    <button onclick="filterVideo('Admin Simpul')" class="video-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition whitespace-nowrap" data-cat="Admin Simpul">Admin Simpul</button>
+                </div>
+            </div>
+
+            <!-- Video Grid -->
+            <div id="video-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Video Cards Rendered Dynamically -->
+            </div>
+        </section>
+
+        <!-- ================= TAB MODUL 2: MATERI DAN REGULASI ================= -->
+        <section id="tab-materi" class="tab-content hidden space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-amber-600"></i>
+                        <span>Modul 2: Materi dan Regulasi</span>
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">Unduh dokumen resmi, Perka ANRI, Petunjuk Teknis, dan materi bimbingan teknis SIKN JIKN</p>
+                </div>
+                <!-- Category Filter -->
+                <div class="flex items-center space-x-2 overflow-x-auto pb-1 sm:pb-0">
+                    <button onclick="filterMateri('All')" class="materi-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-white transition whitespace-nowrap" data-cat="All">Semua</button>
+                    <button onclick="filterMateri('Regulasi')" class="materi-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition whitespace-nowrap" data-cat="Regulasi">Regulasi & Hukum</button>
+                    <button onclick="filterMateri('Pedoman Teknis')" class="materi-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition whitespace-nowrap" data-cat="Pedoman Teknis">Pedoman Teknis</button>
+                    <button onclick="filterMateri('Bimtek')" class="materi-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition whitespace-nowrap" data-cat="Bimtek">Materi Bimtek</button>
+                </div>
+            </div>
+
+            <!-- List/Grid Materi Container -->
+            <div id="materi-grid-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Materi Items Rendered Dynamically -->
+            </div>
+        </section>
+
+        <!-- ================= TAB MODUL 3: PIC PENDAMPING & SIMPUL ================= -->
+        <section id="tab-pic" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-users-gear text-emerald-600"></i>
+                        <span>Modul 3: PIC Pendamping & Simpul Jaringan</span>
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">Daftar kontak Pembina/Pendamping ANRI berdasarkan wilayah binaan kementerian, lembaga, dan pemerintah daerah</p>
+                </div>
+                <div class="text-xs bg-emerald-50 text-emerald-800 border border-emerald-200 px-4 py-2 rounded-xl font-medium flex items-center space-x-2">
+                    <i class="fa-solid fa-circle-info text-emerald-600 text-base"></i>
+                    <span>Butuh bantuan instalasi / akun? Hubungi PIC Wilayah Anda.</span>
+                </div>
+            </div>
+
+            <!-- PIC Grid -->
+            <div id="pic-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- PIC Items Rendered Dynamically -->
+            </div>
+        </section>
+
+        <!-- Search Empty State Alert -->
+        <div id="search-empty-state" class="hidden text-center py-16 bg-white rounded-2xl border border-slate-200 shadow-sm">
+            <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <h3 class="font-bold text-slate-800 text-lg">Tidak Ada Data Ditemukan</h3>
+            <p class="text-slate-500 text-xs mt-1 max-w-md mx-auto">Tidak menemukan hasil yang cocok dengan kata kunci pencarian Anda. Coba kata kunci lain atau bersihkan pencarian.</p>
+            <button onclick="clearSearch()" class="mt-4 px-4 py-2 bg-jikn-blue text-white text-xs font-bold rounded-lg hover:bg-jikn-darkblue transition">
+                Reset Pencarian
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-xs">
+                <div class="md:col-span-2 space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-jikn-blue p-1 flex items-center justify-center font-bold text-white">
+                            <i class="fa-solid fa-box-archive"></i>
+                        </div>
+                        <span class="font-black text-xl text-white tracking-wider">WikiSIKN</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed max-w-sm">
+                        WikiSIKN dikembangkan sebagai portal wawasan pembelajaran mandiri untuk pengelola SIKN & JIKN di seluruh kementerian, lembaga, dan daerah di Indonesia.
+                    </p>
+                    <p class="text-slate-500">
+                        &copy; 2026 Arsip Nasional Republik Indonesia (ANRI). Hak Cipta Dilindungi Undang-Undang.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-200 text-sm mb-3">Tautan Pintar</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="https://sikn.anri.go.id" target="_blank" rel="noopener" class="hover:text-amber-400 transition flex items-center gap-1.5"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Portal Aplikasi SIKN</a></li>
+                        <li><a href="https://jikn.anri.go.id" target="_blank" rel="noopener" class="hover:text-amber-400 transition flex items-center gap-1.5"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Portal Layanan JIKN</a></li>
+                        <li><a href="https://anri.go.id" target="_blank" rel="noopener" class="hover:text-amber-400 transition flex items-center gap-1.5"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Website Resmi ANRI</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-200 text-sm mb-3">Kontak Pusat ANRI</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        Jl. Ampera Raya No. 7, Cilandak, Jakarta Selatan 12560<br>
+                        Email: info@anri.go.id<br>
+                        Call Center: (021) 7805841
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Modal 1: Login Admin -->
+    <div id="modal-login" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-slate-100 relative">
+            <button onclick="closeModal('modal-login')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-blue-100 text-jikn-blue flex items-center justify-center mx-auto mb-3 text-xl font-bold">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h3 class="text-xl font-extrabold text-slate-900">Login Admin WikiSIKN</h3>
+                <p class="text-xs text-slate-500 mt-1">Masukkan kata sandi administrator untuk mengelola konten</p>
+            </div>
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Kata Sandi Admin</label>
+                    <input type="password" id="admin-pass-input" placeholder="Masukkan kata sandi" required autocomplete="off"
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-jikn-blue focus:outline-none">
+                </div>
+                <div id="login-error-msg" class="hidden text-xs text-red-600 font-semibold bg-red-50 p-2.5 rounded-lg border border-red-200">
+                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Kata sandi salah! Coba lagi.
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-jikn-blue hover:bg-jikn-darkblue text-white font-bold text-sm rounded-xl shadow transition">
+                    Masuk Mode Admin
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Video Player Embed Modal -->
+    <div id="modal-video-player" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full overflow-hidden border border-slate-200 relative">
+            <div class="p-4 bg-slate-900 text-white flex items-center justify-between">
+                <h3 id="player-title" class="font-bold text-sm sm:text-base truncate pr-4">Judul Video</h3>
+                <button onclick="closeModal('modal-video-player')" class="text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="aspect-video w-full bg-black relative">
+                <iframe id="player-iframe" class="w-full h-full" src="" title="YouTube Video Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="p-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div>
+                    <span id="player-category" class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-jikn-blue mb-1">Kategori</span>
+                    <p id="player-desc" class="text-xs text-slate-600 leading-relaxed">Deskripsi video tutorial.</p>
+                </div>
+                <button onclick="closeModal('modal-video-player')" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold rounded-lg transition self-end sm:self-auto">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Material Preview Modal -->
+    <div id="modal-materi-preview" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 border border-slate-200 relative max-h-[90vh] flex flex-col">
+            <button onclick="closeModal('modal-materi-preview')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+                <div>
+                    <span id="preview-materi-cat" class="text-[10px] uppercase font-extrabold px-2 py-0.5 bg-amber-100 text-amber-800 rounded">Kategori</span>
+                    <h3 id="preview-materi-title" class="font-bold text-lg text-slate-900">Judul Dokumen</h3>
+                </div>
+            </div>
+            <div class="flex-grow overflow-y-auto space-y-4 pr-2 text-xs sm:text-sm text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider">Ringkasan & Cakupan Dokumen</h4>
+                <p id="preview-materi-desc">Deskripsi ringkas mengenai materi ini.</p>
+                <div class="border-t border-slate-200 pt-3">
+                    <h5 class="font-semibold text-slate-800 mb-1">Format & Metadata:</h5>
+                    <ul class="list-disc list-inside space-y-1 text-slate-500">
+                        <li>Jenis File: PDF / Dokumen Resmi ANRI</li>
+                        <li>Ukuran File: ~ 2.4 MB</li>
+                        <li>Diterbitkan oleh: Pusat Pengolahan Kearsipan ANRI</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-6 flex items-center justify-end space-x-3 pt-3 border-t border-slate-200">
+                <button onclick="closeModal('modal-materi-preview')" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
+                    Tutup
+                </button>
+                <a id="preview-materi-download" href="#" target="_blank" class="px-4 py-2 bg-jikn-blue hover:bg-jikn-darkblue text-white text-xs font-bold rounded-lg shadow transition flex items-center space-x-1.5">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Unduh / Buka Dokumen</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Add/Edit Item CRUD Form -->
+    <div id="modal-crud-form" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-6 border border-slate-200 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('modal-crud-form')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="mb-6">
+                <h3 id="crud-modal-title" class="text-xl font-extrabold text-slate-900">Tambah Konten Baru</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Pilih modul yang ingin ditambahkan dan isi data lengkapnya.</p>
+            </div>
+
+            <form onsubmit="handleCrudSubmit(event)" class="space-y-4 text-xs sm:text-sm">
+                <!-- Target Module Selector -->
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Target Modul</label>
+                    <select id="form-module-type" onchange="toggleFormFields()" class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-jikn-blue focus:outline-none">
+                        <option value="video">Modul 1: Video Tutorial</option>
+                        <option value="materi">Modul 2: Materi dan Regulasi</option>
+                        <option value="pic">Modul 3: PIC Pendamping</option>
+                    </select>
+                </div>
+
+                <input type="hidden" id="form-item-id" value="">
+
+                <!-- Common Field: Title / Name -->
+                <div>
+                    <label id="lbl-form-title" class="block font-bold text-slate-700 mb-1">Judul Video</label>
+                    <input type="text" id="form-title" required placeholder="Contoh: Tutorial Input Metadata Naskah SIKN" class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-jikn-blue focus:outline-none">
+                </div>
+
+                <!-- Fields for VIDEO and MATERI: Category -->
+                <div id="field-group-cat">
+                    <label class="block font-bold text-slate-700 mb-1">Kategori / Topik</label>
+                    <input type="text" id="form-category" placeholder="Contoh: Pengolahan SIKN, Regulasi, Bimtek" class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-jikn-blue focus:outline-none">
+                </div>
+
+                <!-- Field for VIDEO ONLY: Youtube Link / ID -->
+                <div id="field-group-video-url">
+                    <label class="block font-bold text-slate-700 mb-1">Link Video Youtube / Embed ID</label>
+                    <input type="text" id="form-video-url" placeholder="https://www.youtube.com/watch?v=XXXXX atau YouTube Video ID" class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-jikn-blue focus:outline-none">
+                    <p class="text-[11px] text-slate-400 mt-1">Masukkan URL lengkap Youtube atau ID Video 11 Karakter</p>
+                </div>
+
+                <!-- Field for MATERI ONLY: Download Link / File URL -->
+                <div id="field-group-materi-url" class="hidden">
+                    <label class="block font-bold text-slate-700 mb-1">URL File Dokumen / PDF Link</label>
+                    <input type="text" id="form-materi-url" placeholder="https://anri.go.id/dokumen/pedoman.pdf" class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-jikn-blue focus:outline-none">
+                </div>
+
+                <!-- Fields for PIC ONLY: Jabatan, Kontak, Simpul Binaan -->
+                <div id="field-group-pic" class="hidden space-y-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Jabatan / Tim Kerja</label>
+                        <input type="text" id="form-pic-role" placeholder="Contoh: Arsiparis Ahli Muda - Tim Pendamping Wilayah Jawa" class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-jikn-blue focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Nomor WhatsApp / Telepon</label>
+                        <input type="text" id="form-pic-phone" placeholder="Contoh: 0812-3456-7890" class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-jikn-blue focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Email Resmi</label>
+                        <input type="email" id="form-pic-email" placeholder="Contoh: pic.wilayah1@anri.go.id" class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-jikn-blue focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Daftar Simpul Jaringan Binaan (Dipisahkan Koma)</label>
+                        <textarea id="form-pic-simpul" rows="2" placeholder="Contoh: Pemprov DKI, Pemkot Tangsel, Kemenkeu" class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-jikn-blue focus:outline-none"></textarea>
+                    </div>
+                </div>
+
+                <!-- Common Field: Description -->
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Deskripsi / Ringkasan Content</label>
+                    <textarea id="form-description" rows="3" required placeholder="Jelaskan ringkasan isi video, materi, atau profil singkat..." class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-jikn-blue focus:outline-none"></textarea>
+                </div>
+
+                <div class="pt-4 flex items-center justify-end space-x-3 border-t border-slate-200">
+                    <button type="button" onclick="closeModal('modal-crud-form')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition">
+                        Batal
+                    </button>
+                    <button type="submit" class="px-5 py-2 bg-jikn-blue hover:bg-jikn-darkblue text-white font-bold rounded-xl shadow transition">
+                        Simpan Data
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast Float -->
+    <div id="toast-notification" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl border border-slate-700 flex items-center space-x-3 transform translate-y-20 opacity-0 transition duration-300 pointer-events-none">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-message" class="text-xs font-semibold">Pesan notifikasi</span>
+    </div>
+
+    <script>
+        // ================= DATA SEED (DEFAULT SAMPLE DATA) =================
+        const DEFAULT_VIDEOS = [
+            {
+                id: 'vid-1',
+                title: 'Pengenalan & Alur Kerja SIKN JIKN bagi Simpul Jaringan Baru',
+                category: 'Pengolahan SIKN',
+                youtubeId: 'dQw4w9WgXcQ',
+                duration: '12:45',
+                description: 'Video bimbingan dasar mengenai tata cara pendaftaran akun simpul jaringan, verifikasi arsip, dan pengolahan arsip dinamis.'
+            },
+            {
+                id: 'vid-2',
+                title: 'Panduan Standardisasi Input Metadata Arsip Statis',
+                category: 'Pengolahan SIKN',
+                youtubeId: 'L_LUpnjgPso',
+                duration: '18:20',
+                description: 'Penjelasan detail mengenai aturan pencatatan deskripsi arsip, penentuan kata kunci entitas, dan pengunggahan berkas digital.'
+            },
+            {
+                id: 'vid-3',
+                title: 'Fitur Pencarian Lanjut dan Akses Publik pada Portal JIKN',
+                category: 'Portal JIKN',
+                youtubeId: '3JZ_D3ELwOQ',
+                duration: '09:15',
+                description: 'Petunjuk memanfaatkan fitur mesin pencari JIKN untuk menemukan naskah kuno, foto sejarah, dan arsip kebangsaan.'
+            },
+            {
+                id: 'vid-4',
+                title: 'Pengelolaan Hak Akses User Admin Simpul Daerah',
+                category: 'Admin Simpul',
+                youtubeId: 'fJ9rUzIMcZQ',
+                duration: '15:10',
+                description: 'Tutorial bagi administrator daerah dalam mengelola peranan operator input, validator, dan publikasi arsip.'
+            }
+        ];
+
+        const DEFAULT_MATERI = [
+            {
+                id: 'mat-1',
+                title: 'Undang-Undang No. 43 Tahun 2009 tentang Kearsipan',
+                category: 'Regulasi',
+                fileUrl: 'https://anri.go.id',
+                date: '2023-01-10',
+                description: 'Landasan hukum utama penyelenggaraan kearsipan nasional dan pembentukan SIKN serta JIKN di Indonesia.'
+            },
+            {
+                id: 'mat-2',
+                title: 'Peraturan Pemerintah No. 28 Tahun 2012 Pelaksanaan UU Kearsipan',
+                category: 'Regulasi',
+                fileUrl: 'https://anri.go.id',
+                date: '2023-02-15',
+                description: 'Peraturan pelaksanaan yang mengatur tanggung jawab simpul jaringan dan pusat jaringan ANRI.'
+            },
+            {
+                id: 'mat-3',
+                title: 'Pedoman Juknis Input Metadata SIKN Versi 3.0',
+                category: 'Pedoman Teknis',
+                fileUrl: 'https://anri.go.id',
+                date: '2024-05-20',
+                description: 'Buku petunjuk teknis langkah demi langkah pengisian form metadata arsip tekstual, kartografi, dan foto.'
+            },
+            {
+                id: 'mat-4',
+                title: 'Materi Bimtek Penguatan Akuntabilitas Kearsipan Digital',
+                category: 'Bimtek',
+                fileUrl: 'https://anri.go.id',
+                date: '2025-08-12',
+                description: 'Slide persentasi narasumber ANRI mengenai integrasi SIKN dengan Sistem Pemerintahan Berbasis Elektronik (SPBE).'
+            }
+        ];
+
+        const DEFAULT_PICS = [
+            {
+                id: 'pic-1',
+                name: 'Budi Santoso, S.STP., M.Si.',
+                role: 'Arsiparis Ahli Madya - Koordinator Wilayah I',
+                phone: '0812-8899-0011',
+                email: 'budi.santoso@anri.go.id',
+                simpul: ['Pemprov DKI Jakarta', 'Pemkot Tangerang Selatan', 'Kementerian Keuangan', 'Kementerian Luar Negeri'],
+                description: 'Mendampingi simpul jaringan wilayah Sumatera Barat, DKI Jakarta, dan Lembaga Tinggi Negara.'
+            },
+            {
+                id: 'pic-2',
+                name: 'Siti Rahmawati, S.Sos., M.AP.',
+                role: 'Arsiparis Ahli Muda - Pembina Simpul Daerah Jawa',
+                phone: '0813-7766-5544',
+                email: 'siti.rahma@anri.go.id',
+                simpul: ['Pemprov Jawa Barat', 'Pemkab Bandung', 'Pemkot Semarang', 'Pemprov Jawa Timur'],
+                description: 'Fokus pada percepatan digitalisasi naskah kuno dan integrasi server simpul daerah Jawa.'
+            },
+            {
+                id: 'pic-3',
+                name: 'Dedi Kurniawan, S.Kom.',
+                role: 'Pranata Komputer - Pendamping Teknis & Aplikasi',
+                phone: '0856-1122-3344',
+                email: 'dedi.kurniawan@anri.go.id',
+                simpul: ['Seluruh Simpul Jaringan Wilayah Sulawesi & Maluku'],
+                description: 'Spesialis perbaikan kendala koneksi server, migrasi database SIKN, dan keamanan sistem.'
+            }
+        ];
+
+        // ================= APP STATE & LOCALSTORAGE =================
+        let videos = [];
+        let materi = [];
+        let pics = [];
+        let isAdminLoggedIn = false;
+        let currentTab = 'home';
+        let activeVideoCat = 'All';
+        let activeMateriCat = 'All';
+
+        function initData() {
+            const savedVideos = localStorage.getItem('wikisikn_videos');
+            const savedMateri = localStorage.getItem('wikisikn_materi');
+            const savedPics = localStorage.getItem('wikisikn_pics');
+            const savedAdminState = localStorage.getItem('wikisikn_admin');
+
+            videos = savedVideos ? JSON.parse(savedVideos) : [...DEFAULT_VIDEOS];
+            materi = savedMateri ? JSON.parse(savedMateri) : [...DEFAULT_MATERI];
+            pics = savedPics ? JSON.parse(savedPics) : [...DEFAULT_PICS];
+            isAdminLoggedIn = savedAdminState === 'true';
+
+            updateAdminUI();
+            renderAllModuleData();
+        }
+
+        function saveDataToStorage() {
+            localStorage.setItem('wikisikn_videos', JSON.stringify(videos));
+            localStorage.setItem('wikisikn_materi', JSON.stringify(materi));
+            localStorage.setItem('wikisikn_pics', JSON.stringify(pics));
+        }
+
+        function resetDataToDefault() {
+            if (confirm("Apakah Anda yakin ingin mengembalikan semua data ke data contoh bawaan?")) {
+                videos = [...DEFAULT_VIDEOS];
+                materi = [...DEFAULT_MATERI];
+                pics = [...DEFAULT_PICS];
+                saveDataToStorage();
+                renderAllModuleData();
+                showToast("Data berhasil direset ke contoh default!");
+            }
+        }
+
+        // ================= TAB SWITCHING LOGIC =================
+        function switchTab(tabName) {
+            currentTab = tabName;
+            
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            
+            const target = document.getElementById(`tab-${tabName}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-jikn-blue', 'bg-blue-50');
+                btn.classList.add('text-slate-600');
+            });
+            const activeBtn = document.getElementById(`nav-${tabName}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-600');
+                activeBtn.classList.add('text-jikn-blue', 'bg-blue-50');
+            }
+
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => btn.classList.remove('text-jikn-blue'));
+            const activeMobileBtn = document.getElementById(`m-nav-${tabName}`);
+            if (activeMobileBtn) activeMobileBtn.classList.add('text-jikn-blue');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ================= GLOBAL UNIFIED SEARCH LOGIC =================
+        function handleGlobalSearch() {
+            const query = document.getElementById('global-search-input').value.trim().toLowerCase();
+            const badge = document.getElementById('search-results-badge');
+            const keywordLabel = document.getElementById('search-keyword-label');
+            const clearBtn = document.getElementById('clear-search-btn');
+
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+                badge.classList.remove('hidden');
+                keywordLabel.innerText = query;
+            } else {
+                clearBtn.classList.add('hidden');
+                badge.classList.add('hidden');
+            }
+
+            const filteredVid = videos.filter(v => 
+                v.title.toLowerCase().includes(query) || 
+                v.description.toLowerCase().includes(query) || 
+                v.category.toLowerCase().includes(query)
+            );
+
+            const filteredMat = materi.filter(m => 
+                m.title.toLowerCase().includes(query) || 
+                m.description.toLowerCase().includes(query) || 
+                m.category.toLowerCase().includes(query)
+            );
+
+            const filteredPic = pics.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.role.toLowerCase().includes(query) || 
+                p.description.toLowerCase().includes(query) || 
+                p.simpul.some(s => s.toLowerCase().includes(query))
+            );
+
+            renderVideoGrid(filteredVid);
+            renderMateriGrid(filteredMat);
+            renderPicGrid(filteredPic);
+
+            const totalMatches = filteredVid.length + filteredMat.length + filteredPic.length;
+            const emptyState = document.getElementById('search-empty-state');
+            if (totalMatches === 0 && query.length > 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById('global-search-input').value = '';
+            handleGlobalSearch();
+        }
+
+        // ================= RENDER FUNCTIONS =================
+        function renderAllModuleData() {
+            renderVideoGrid(videos);
+            renderMateriGrid(materi);
+            renderPicGrid(pics);
+            renderHomeFeatured();
+            updateStatsCounts();
+        }
+
+        function updateStatsCounts() {
+            document.getElementById('stat-video-count').innerText = `${videos.length} Video Tersedia`;
+            document.getElementById('stat-materi-count').innerText = `${materi.length} Materi & Dokumen`;
+            document.getElementById('stat-pic-count').innerText = `${pics.length} Kontak Pendamping`;
+        }
+
+        function renderVideoGrid(dataList) {
+            const container = document.getElementById('video-grid-container');
+            container.innerHTML = '';
+
+            let itemsToRender = dataList;
+            if (activeVideoCat !== 'All') {
+                itemsToRender = itemsToRender.filter(v => v.category === activeVideoCat);
+            }
+
+            if (itemsToRender.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs">Tidak ada video dalam kategori ini.</div>`;
+                return;
+            }
+
+            itemsToRender.forEach(vid => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition flex flex-col justify-between group";
+                card.innerHTML = `
+                    <div>
+                        <div class="relative aspect-video bg-slate-900 overflow-hidden cursor-pointer" onclick="playVideoModal('${vid.youtubeId}', '${escapeQuotes(vid.title)}', '${escapeQuotes(vid.description)}', '${vid.category}')">
+                            <img src="https://img.youtube.com/vi/${vid.youtubeId}/mqdefault.jpg" onerror="this.src='https://placehold.co/600x400/0f172a/ffffff?text=Video+SIKN'" class="w-full h-full object-cover group-hover:scale-105 transition duration-300 opacity-90 group-hover:opacity-100" alt="Thumbnail">
+                            <div class="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/10 transition">
+                                <div class="w-12 h-12 rounded-full bg-jikn-blue text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+                                    <i class="fa-solid fa-play ml-1"></i>
+                                </div>
+                            </div>
+                            <span class="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] font-bold px-2 py-0.5 rounded backdrop-blur">
+                                <i class="fa-regular fa-clock mr-1"></i>${vid.duration || '10:00'}
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-50 text-jikn-blue mb-2 border border-blue-100">${vid.category}</span>
+                            <h4 class="font-bold text-slate-800 text-sm leading-snug hover:text-jikn-blue transition cursor-pointer" onclick="playVideoModal('${vid.youtubeId}', '${escapeQuotes(vid.title)}', '${escapeQuotes(vid.description)}', '${vid.category}')">${vid.title}</h4>
+                            <p class="text-xs text-slate-500 mt-2 line-clamp-2 leading-relaxed">${vid.description}</p>
+                        </div>
+                    </div>
+                    <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
+                        <button onclick="playVideoModal('${vid.youtubeId}', '${escapeQuotes(vid.title)}', '${escapeQuotes(vid.description)}', '${vid.category}')" class="font-bold text-jikn-blue hover:underline flex items-center">
+                            <span>Tonton Video</span>
+                            <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i>
+                        </button>
+                        ${isAdminLoggedIn ? `
+                            <div class="flex items-center space-x-1">
+                                <button onclick="openEditModal('video', '${vid.id}')" class="p-1.5 text-slate-500 hover:text-blue-600 rounded" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button onclick="deleteItem('video', '${vid.id}')" class="p-1.5 text-slate-500 hover:text-red-600 rounded" title="Hapus"><i class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterVideo(cat) {
+            activeVideoCat = cat;
+            document.querySelectorAll('.video-filter-btn').forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.className = "video-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-jikn-blue text-white transition whitespace-nowrap";
+                } else {
+                    btn.className = "video-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition whitespace-nowrap";
+                }
+            });
+            renderVideoGrid(videos);
+        }
+
+        function renderMateriGrid(dataList) {
+            const container = document.getElementById('materi-grid-container');
+            container.innerHTML = '';
+
+            let itemsToRender = dataList;
+            if (activeMateriCat !== 'All') {
+                itemsToRender = itemsToRender.filter(m => m.category === activeMateriCat);
+            }
+
+            if (itemsToRender.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs">Tidak ada dokumen materi dalam kategori ini.</div>`;
+                return;
+            }
+
+            itemsToRender.forEach(mat => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between relative group";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-50 text-amber-700 border border-amber-200 uppercase">${mat.category}</span>
+                            <span class="text-[11px] text-slate-400"><i class="fa-regular fa-calendar-check mr-1"></i>${mat.date || 'Terbaru'}</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm sm:text-base leading-snug group-hover:text-amber-600 transition cursor-pointer" onclick="openMateriPreview('${escapeQuotes(mat.title)}', '${escapeQuotes(mat.description)}', '${mat.category}', '${mat.fileUrl}')">${mat.title}</h4>
+                        <p class="text-xs text-slate-500 mt-2 line-clamp-3 leading-relaxed">${mat.description}</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                        <button onclick="openMateriPreview('${escapeQuotes(mat.title)}', '${escapeQuotes(mat.description)}', '${mat.category}', '${mat.fileUrl}')" class="px-3 py-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold transition flex items-center space-x-1">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>Baca Ringkasan</span>
+                        </button>
+                        ${isAdminLoggedIn ? `
+                            <div class="flex items-center space-x-1">
+                                <button onclick="openEditModal('materi', '${mat.id}')" class="p-1.5 text-slate-500 hover:text-blue-600 rounded" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button onclick="deleteItem('materi', '${mat.id}')" class="p-1.5 text-slate-500 hover:text-red-600 rounded" title="Hapus"><i class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterMateri(cat) {
+            activeMateriCat = cat;
+            document.querySelectorAll('.materi-filter-btn').forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.className = "materi-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-white transition whitespace-nowrap";
+                } else {
+                    btn.className = "materi-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition whitespace-nowrap";
+                }
+            });
+            renderMateriGrid(materi);
+        }
+
+        function renderPicGrid(dataList) {
+            const container = document.getElementById('pic-grid-container');
+            container.innerHTML = '';
+
+            if (dataList.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs">Tidak ada kontak PIC ditemukan.</div>`;
+                return;
+            }
+
+            dataList.forEach(pic => {
+                const simpulTags = pic.simpul.map(s => `<span class="inline-block bg-slate-100 text-slate-700 text-[10px] font-semibold px-2 py-0.5 rounded border border-slate-200">${s}</span>`).join(' ');
+
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg transition flex flex-col justify-between relative";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-lg border border-emerald-200">
+                                ${pic.name.charAt(0)}
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">${pic.name}</h4>
+                                <p class="text-[11px] font-medium text-emerald-700">${pic.role}</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4 leading-relaxed">${pic.description}</p>
+                        <div class="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3 mb-4">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-phone text-emerald-600 w-4"></i>
+                                <span>${pic.phone}</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-envelope text-emerald-600 w-4"></i>
+                                <span class="truncate">${pic.email}</span>
+                            </div>
+                        </div>
+                        <div class="border-t border-slate-100 pt-3">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Simpul Binaan Utama:</p>
+                            <div class="flex flex-wrap gap-1.5">
+                                ${simpulTags}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <a href="https://wa.me/${pic.phone.replace(/[^0-9]/g, '')}" target="_blank" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition flex items-center space-x-1.5">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span>Hubungi WA</span>
+                        </a>
+                        ${isAdminLoggedIn ? `
+                            <div class="flex items-center space-x-1">
+                                <button onclick="openEditModal('pic', '${pic.id}')" class="p-1.5 text-slate-500 hover:text-blue-600 rounded" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button onclick="deleteItem('pic', '${pic.id}')" class="p-1.5 text-slate-500 hover:text-red-600 rounded" title="Hapus"><i class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderHomeFeatured() {
+            const container = document.getElementById('home-featured-grid');
+            container.innerHTML = '';
+
+            const featVids = videos.slice(0, 2);
+            const featMat = materi.slice(0, 1);
+
+            featVids.forEach(vid => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-50 text-jikn-blue">Video Tutorial</span>
+                        <h4 class="font-bold text-slate-800 text-sm mt-2 mb-1">${vid.title}</h4>
+                        <p class="text-xs text-slate-500 line-clamp-2 mb-3">${vid.description}</p>
+                    </div>
+                    <button onclick="switchTab('video'); playVideoModal('${vid.youtubeId}', '${escapeQuotes(vid.title)}', '${escapeQuotes(vid.description)}', '${vid.category}')" class="text-xs font-bold text-jikn-blue flex items-center hover:underline">
+                        <span>Putar Video Sekarang</span>
+                        <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+
+            featMat.forEach(mat => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-50 text-amber-700">Materi dan Regulasi</span>
+                        <h4 class="font-bold text-slate-800 text-sm mt-2 mb-1">${mat.title}</h4>
+                        <p class="text-xs text-slate-500 line-clamp-2 mb-3">${mat.description}</p>
+                    </div>
+                    <button onclick="switchTab('materi'); openMateriPreview('${escapeQuotes(mat.title)}', '${escapeQuotes(mat.description)}', '${mat.category}', '${mat.fileUrl}')" class="text-xs font-bold text-amber-600 flex items-center hover:underline">
+                        <span>Baca Ringkasan Materi</span>
+                        <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // ================= ADMIN & CRUD HANDLERS =================
+        function updateAdminUI() {
+            const adminToolsBar = document.getElementById('admin-tools-bar');
+            const adminIndicator = document.getElementById('admin-indicator');
+            const adminBtnText = document.getElementById('admin-btn-text');
+            const adminIcon = document.getElementById('admin-icon');
+
+            if (isAdminLoggedIn) {
+                adminToolsBar.classList.remove('hidden');
+                adminIndicator.classList.remove('hidden');
+                adminIndicator.classList.add('flex');
+                adminBtnText.innerText = 'Keluar Admin';
+                adminIcon.className = 'fa-solid fa-right-from-bracket text-xs';
+            } else {
+                adminToolsBar.classList.add('hidden');
+                adminIndicator.classList.add('hidden');
+                adminIndicator.classList.remove('flex');
+                adminBtnText.innerText = 'Login Admin';
+                adminIcon.className = 'fa-solid fa-lock text-xs';
+            }
+        }
+
+        function toggleAdminModal() {
+            if (isAdminLoggedIn) {
+                if (confirm("Apakah Anda ingin keluar dari Mode Admin?")) {
+                    isAdminLoggedIn = false;
+                    localStorage.setItem('wikisikn_admin', 'false');
+                    updateAdminUI();
+                    renderAllModuleData();
+                    showToast("Mode admin di-nonaktifkan.");
+                }
+            } else {
+                document.getElementById('admin-pass-input').value = '';
+                document.getElementById('login-error-msg').classList.add('hidden');
+                openModal('modal-login');
+            }
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('admin-pass-input').value;
+            if (pass === 'S1knj1kn') {
+                isAdminLoggedIn = true;
+                localStorage.setItem('wikisikn_admin', 'true');
+                closeModal('modal-login');
+                updateAdminUI();
+                renderAllModuleData();
+                showToast("Berhasil login sebagai Administrator!");
+            } else {
+                document.getElementById('login-error-msg').classList.remove('hidden');
+            }
+        }
+
+        function openAddModal() {
+            document.getElementById('crud-modal-title').innerText = "Tambah Konten Baru";
+            document.getElementById('form-item-id').value = "";
+            document.getElementById('form-title').value = "";
+            document.getElementById('form-category').value = "";
+            document.getElementById('form-video-url').value = "";
+            document.getElementById('form-materi-url').value = "";
+            document.getElementById('form-pic-role').value = "";
+            document.getElementById('form-pic-phone').value = "";
+            document.getElementById('form-pic-email').value = "";
+            document.getElementById('form-pic-simpul').value = "";
+            document.getElementById('form-description').value = "";
+
+            toggleFormFields();
+            openModal('modal-crud-form');
+        }
+
+        function openEditModal(moduleType, id) {
+            document.getElementById('crud-modal-title').innerText = "Edit Konten";
+            document.getElementById('form-module-type').value = moduleType;
+            document.getElementById('form-item-id').value = id;
+
+            if (moduleType === 'video') {
+                const item = videos.find(v => v.id === id);
+                if (item) {
+                    document.getElementById('form-title').value = item.title;
+                    document.getElementById('form-category').value = item.category;
+                    document.getElementById('form-video-url').value = item.youtubeId;
+                    document.getElementById('form-description').value = item.description;
+                }
+            } else if (moduleType === 'materi') {
+                const item = materi.find(m => m.id === id);
+                if (item) {
+                    document.getElementById('form-title').value = item.title;
+                    document.getElementById('form-category').value = item.category;
+                    document.getElementById('form-materi-url').value = item.fileUrl;
+                    document.getElementById('form-description').value = item.description;
+                }
+            } else if (moduleType === 'pic') {
+                const item = pics.find(p => p.id === id);
+                if (item) {
+                    document.getElementById('form-title').value = item.name;
+                    document.getElementById('form-pic-role').value = item.role;
+                    document.getElementById('form-pic-phone').value = item.phone;
+                    document.getElementById('form-pic-email').value = item.email;
+                    document.getElementById('form-pic-simpul').value = item.simpul.join(', ');
+                    document.getElementById('form-description').value = item.description;
+                }
+            }
+
+            toggleFormFields();
+            openModal('modal-crud-form');
+        }
+
+        function toggleFormFields() {
+            const type = document.getElementById('form-module-type').value;
+            const lblTitle = document.getElementById('lbl-form-title');
+            const grpCat = document.getElementById('field-group-cat');
+            const grpVidUrl = document.getElementById('field-group-video-url');
+            const grpMatUrl = document.getElementById('field-group-materi-url');
+            const grpPic = document.getElementById('field-group-pic');
+
+            if (type === 'video') {
+                lblTitle.innerText = "Judul Video Tutorial";
+                grpCat.classList.remove('hidden');
+                grpVidUrl.classList.remove('hidden');
+                grpMatUrl.classList.add('hidden');
+                grpPic.classList.add('hidden');
+            } else if (type === 'materi') {
+                lblTitle.innerText = "Judul Materi/Dokumen";
+                grpCat.classList.remove('hidden');
+                grpVidUrl.classList.add('hidden');
+                grpMatUrl.classList.remove('hidden');
+                grpPic.classList.add('hidden');
+            } else if (type === 'pic') {
+                lblTitle.innerText = "Nama Lengkap PIC Pendamping";
+                grpCat.classList.add('hidden');
+                grpVidUrl.classList.add('hidden');
+                grpMatUrl.classList.add('hidden');
+                grpPic.classList.remove('hidden');
+            }
+        }
+
+        function handleCrudSubmit(e) {
+            e.preventDefault();
+            const type = document.getElementById('form-module-type').value;
+            const id = document.getElementById('form-item-id').value;
+            const title = document.getElementById('form-title').value.trim();
+            const desc = document.getElementById('form-description').value.trim();
+
+            if (type === 'video') {
+                const cat = document.getElementById('form-category').value.trim() || 'Umum';
+                let rawYt = document.getElementById('form-video-url').value.trim();
+                let ytId = extractYoutubeId(rawYt) || 'dQw4w9WgXcQ';
+
+                if (id) {
+                    const idx = videos.findIndex(v => v.id === id);
+                    if (idx !== -1) {
+                        videos[idx] = { ...videos[idx], title, category: cat, youtubeId: ytId, description: desc };
+                    }
+                } else {
+                    videos.unshift({
+                        id: 'vid-' + Date.now(),
+                        title,
+                        category: cat,
+                        youtubeId: ytId,
+                        duration: '10:00',
+                        description: desc
+                    });
+                }
+            } else if (type === 'materi') {
+                const cat = document.getElementById('form-category').value.trim() || 'Pedoman';
+                const fileUrl = document.getElementById('form-materi-url').value.trim() || 'https://anri.go.id';
+
+                if (id) {
+                    const idx = materi.findIndex(m => m.id === id);
+                    if (idx !== -1) {
+                        materi[idx] = { ...materi[idx], title, category: cat, fileUrl, description: desc };
+                    }
+                } else {
+                    materi.unshift({
+                        id: 'mat-' + Date.now(),
+                        title,
+                        category: cat,
+                        fileUrl,
+                        date: new Date().toISOString().split('T')[0],
+                        description: desc
+                    });
+                }
+            } else if (type === 'pic') {
+                const role = document.getElementById('form-pic-role').value.trim() || 'Arsiparis ANRI';
+                const phone = document.getElementById('form-pic-phone').value.trim() || '0812-0000-0000';
+                const email = document.getElementById('form-pic-email').value.trim() || 'info@anri.go.id';
+                const simpulRaw = document.getElementById('form-pic-simpul').value.trim();
+                const simpul = simpulRaw ? simpulRaw.split(',').map(s => s.trim()) : ['Wilayah Binaan Baru'];
+
+                if (id) {
+                    const idx = pics.findIndex(p => p.id === id);
+                    if (idx !== -1) {
+                        pics[idx] = { ...pics[idx], name: title, role, phone, email, simpul, description: desc };
+                    }
+                } else {
+                    pics.unshift({
+                        id: 'pic-' + Date.now(),
+                        name: title,
+                        role,
+                        phone,
+                        email,
+                        simpul,
+                        description: desc
+                    });
+                }
+            }
+
+            saveDataToStorage();
+            renderAllModuleData();
+            closeModal('modal-crud-form');
+            showToast("Konten berhasil disimpan!");
+        }
+
+        function deleteItem(type, id) {
+            if (confirm("Apakah Anda yakin ingin menghapus konten ini?")) {
+                if (type === 'video') videos = videos.filter(v => v.id !== id);
+                if (type === 'materi') materi = materi.filter(m => m.id !== id);
+                if (type === 'pic') pics = pics.filter(p => p.id !== id);
+
+                saveDataToStorage();
+                renderAllModuleData();
+                showToast("Konten berhasil dihapus.");
+            }
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            if (id === 'modal-video-player') {
+                document.getElementById('player-iframe').src = '';
+            }
+        }
+
+        function playVideoModal(ytId, title, desc, category) {
+            document.getElementById('player-title').innerText = title;
+            document.getElementById('player-desc').innerText = desc;
+            document.getElementById('player-category').innerText = category;
+            document.getElementById('player-iframe').src = `https://www.youtube.com/embed/${ytId}?autoplay=1`;
+            openModal('modal-video-player');
+        }
+
+        function openMateriPreview(title, desc, cat, fileUrl) {
+            document.getElementById('preview-materi-title').innerText = title;
+            document.getElementById('preview-materi-desc').innerText = desc;
+            document.getElementById('preview-materi-cat').innerText = cat;
+            document.getElementById('preview-materi-download').href = fileUrl || '#';
+            openModal('modal-materi-preview');
+        }
+
+        function extractYoutubeId(url) {
+            if (!url) return '';
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : url;
+        }
+
+        function escapeQuotes(str) {
+            return str ? str.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast-notification');
+            document.getElementById('toast-message').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        window.onload = function() {
+            initData();
+        };
+    </script>
+</body>
+</html>
